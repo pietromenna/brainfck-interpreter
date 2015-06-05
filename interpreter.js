@@ -61,10 +61,13 @@ var VirtualMachine = function() {
 					break;
 				case '.':
 					output = output + String.fromCharCode(memory[data_pointer]);
+					console.log(String.fromCharCode(memory[data_pointer]));
 					break;
 				case ',':
 					//accept one byte of input, storing its value in the byte at the data pointer.
 					//PFM: I haven`t think yet on how to implement this! (UI sense and usability)
+					var character = prompt("Input a character to be stored");
+					memory[data_pointer] = character.charCodeAt(0);
 					break;
 				case '[':
 					//if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.
