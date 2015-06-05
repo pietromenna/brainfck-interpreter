@@ -3,7 +3,6 @@ var VirtualMachine = function() {
 	var instructions = [];
 	var instruction_pointer = 0;
 	var data_pointer = 0;
-	var output =  "";
 	this.initialize_machine = function(){
 		for (var i=0;i<memory.length;i++) memory[i] = 0;
 		instruction_pointer = 0;
@@ -60,7 +59,10 @@ var VirtualMachine = function() {
 					memory[data_pointer] = memory[data_pointer] - 1;
 					break;
 				case '.':
-					output = output + String.fromCharCode(memory[data_pointer]);
+					output = String.fromCharCode(memory[data_pointer]);
+					var current_output = document.getElementById("output").innerHTML;
+					current_output = current_output + output;
+					document.getElementById("output").innerHTML = current_output;
 					console.log(String.fromCharCode(memory[data_pointer]));
 					break;
 				case ',':
@@ -83,20 +85,16 @@ var VirtualMachine = function() {
 			instruction_pointer = instruction_pointer + 1;
 		}
 	}
-	this.get_output = function() {
-		return output;
-	}
 };
 
 var process_input = function(source_code) {
 	var machine = new VirtualMachine();
 	machine.load_program(source_code);
 	machine.run();
-	return machine.get_output();
 }
 
 var process_file = function(){
 	var input_source = document.getElementById("input").value;
-	var output = process_input(input_source);
-	document.getElementById("output").innerHTML = output;
+	process_input(input_source);
+	//document.getElementById("output").innerHTML = output;
 }
