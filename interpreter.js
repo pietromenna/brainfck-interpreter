@@ -93,8 +93,12 @@ var process_input = function(source_code) {
 	machine.run();
 }
 
+var clear_output = function(){
+	document.getElementById("output").innerHTML = "";
+}
+
 var process_file = function(){
+	clear_output();
 	var input_source = document.getElementById("input").value;
 	process_input(input_source);
-	//document.getElementById("output").innerHTML = output;
 }
